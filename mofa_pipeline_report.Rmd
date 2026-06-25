@@ -1,0 +1,276 @@
+---
+title: "MoFA Nepal Remittance Corridor Pipeline"
+subtitle: "Measuring the Invisible -- Korea Corridor, Gulf Comparators, and EPS MOU Analysis"
+author: "Sambhav Lamichhane"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    fig_crop: false
+    highlight: null
+    includes:
+      in_header: tex/preamble.tex
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+geometry: margin=1in
+fontsize: 11pt
+params:
+  use_real_data: true
+  run_nrb_pdf_densification: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, message = FALSE, warning = FALSE,
+  fig.align = "center", fig.width = 7, fig.height = 4.5,
+  dpi = 200, out.width = "100%"
+)
+
+if (!file.exists("run_all.R")) {
+  if (file.exists("mofa_r_pipeline/run_all.R")) setwd("mofa_r_pipeline")
+  else stop("Set working directory to mofa_r_pipeline/ before rendering.")
+}
+
+tex_root <- normalizePath("tex/latex", mustWork = FALSE)
+if (dir.exists(tex_root)) {
+  tex_paths <- list.dirs(tex_root, recursive = FALSE, full.names = TRUE)
+  Sys.setenv(TEXINPUTS = paste0(paste(c(tex_paths, tex_root), collapse = "//:"), "//:"))
+}
+
+required_pkgs <- c(
+  "dplyr", "tidyr", "ggplot2", "readxl", "stringr",
+  "plm", "lmtest", "sandwich", "broom",
+  "zoo", "strucchange", "tseries", "forecast",
+  "knitr", "pdftools", "rmarkdown"
+)
+missing <- required_pkgs[!vapply(required_pkgs, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing) > 0) install.packages(missing, repos = "https://cloud.r-project.org")
+invisible(lapply(required_pkgs, library, character.only = TRUE))
+
+dir.create("output/figures", recursive = TRUE, showWarnings = FALSE)
+dir.create("output/tables",  recursive = TRUE, showWarnings = FALSE)
+
+USE_REAL_DATA <- params$use_real_data
+RUN_NRB_PDF   <- params$run_nrb_pdf_densification
+
+kable_pdf <- function(x, caption = NULL) {
+  knitr::kable(x, format = "latex", booktabs = TRUE, caption = caption, longtable = FALSE)
+}
+
+show_table <- function(path, caption = NULL, digits = 2, max_rows = 40L) {
+  if (!file.exists(path)) {
+    return(kable_pdf(data.frame(note = paste("Not found:", path)), caption))
+  }
+  df <- read.csv(path, stringsAsFactors = FALSE)
+  if (nrow(df) > max_rows) df <- df[seq_len(max_rows), , drop = FALSE]
+  num_cols <- vapply(df, is.numeric, logical(1))
+  if (any(num_cols)) df[num_cols] <- lapply(df[num_cols], round, digits)
+  kable_pdf(df, caption)
+}
+
+show_fig <- function(path) {
+  if (!file.exists(path)) { plot.new(); text(0.5, 0.5, paste("Missing:", path)); return() }
+  knitr::include_graphics(path)
+}
+
+source_script <- function(path) {
+  cat("\n", strrep("=", 60), "\n", path, "\n", strrep("=", 60), "\n", sep = "")
+  source(path, local = FALSE)
+}
+```
+
+# Introduction
+
+This report runs the full MoFA Cluster 10 remittance pipeline and embeds key outputs.
+
+**PDF prerequisites:** install `tinytex` and run `tinytex::install_tinytex()`. For NRB PDF densification, install poppler (`brew install poppler` on macOS).
+
+**Render:** RStudio Knit to PDF, or `rmarkdown::render("mofa_pipeline_report.Rmd")` from the project folder.
+
+Set `params$use_real_data: false` in the YAML header to use demo data instead of collected real files.
+
+# Part 1 -- Data preparation
+
+## RPW corridor panel
+
+```{r data-prep-rpw, cache=TRUE}
+if (USE_REAL_DATA) {
+  source_script("scripts/00b_reshape_rpw_excel.R")
+} else {
+  source_script("scripts/00_generate_demo_data.R")
+}
+```
+
+```{r rpw-head}
+rpw_file <- if (USE_REAL_DATA) "data/raw/rpw_real.csv" else "data/raw/rpw_demo.csv"
+kable_pdf(head(read.csv(rpw_file, stringsAsFactors = FALSE), 8),
+          caption = "RPW panel (first rows)")
+```
+
+## Korea operator fees
+
+```{r data-prep-korea, cache=TRUE}
+if (USE_REAL_DATA) {
+  source_script("scripts/00d_ingest_korea_fees_real.R")
+}
+```
+
+```{r korea-fees-table}
+if (USE_REAL_DATA && file.exists("data/raw/korea_mto_fees_real.csv")) {
+  fees <- read.csv("data/raw/korea_mto_fees_real.csv", stringsAsFactors = FALSE)
+  if ("notes" %in% names(fees)) fees$notes <- NULL
+  kable_pdf(fees, caption = "Korea operator fees")
+}
+```
+
+## NRB monthly series
+
+```{r data-prep-nrb, cache=TRUE, eval=RUN_NRB_PDF}
+if (USE_REAL_DATA) {
+  source_script("scripts/00c_ingest_nrb_real.R")
+}
+```
+
+```{r nrb-summary}
+if (USE_REAL_DATA && file.exists("data/raw/nrb_remit_monthly_real.csv")) {
+  nrb <- read.csv("data/raw/nrb_remit_monthly_real.csv", stringsAsFactors = FALSE)
+  nrb$month <- as.Date(nrb$month)
+  cat("Months:", nrow(nrb), "| Range:", format(min(nrb$month), "%Y-%m"), "-",
+      format(max(nrb$month), "%Y-%m"), "\n")
+  cols <- c("month", "remit_npr_bn", "fx_reserve_usd_bn", "labor_permits_new", "source")
+  kable_pdf(nrb[, cols, drop = FALSE])
+}
+```
+
+# Part 2 -- Load and clean RPW
+
+```{r load-rpw, cache=TRUE}
+source_script("scripts/01_load_clean_rpw.R")
+```
+
+# Part 3 -- Gulf corridor diagnostics
+
+```{r corridor-diagnostics, cache=TRUE}
+source_script("scripts/02_corridor_diagnostics.R")
+```
+
+```{r table1}
+show_table("output/tables/table1_nepal_corridor_diagnostic.csv", "Nepal corridor diagnostic")
+```
+
+```{r table2}
+show_table("output/tables/table2_country_comparison.csv", "Cross-country comparison")
+```
+
+```{r fig1, fig.cap="Nepal corridor cost trend"}
+show_fig("output/figures/fig1_nepal_cost_trend.png")
+```
+
+```{r fig2, fig.cap="Fee vs FX margin decomposition"}
+show_fig("output/figures/fig2_fee_vs_fx_decomposition.png")
+```
+
+# Part 4 -- Korea cost reconstruction
+
+```{r korea-reconstruction, cache=TRUE}
+source_script("scripts/02b_korea_cost_reconstruction.R")
+```
+
+```{r korea-comparison}
+show_table("output/tables/table_korea_vs_gulf_comparison.csv", "Korea vs Gulf MTO costs")
+```
+
+```{r fig-korea, fig.cap="Korea operator costs (KRW 500,000)"}
+show_fig("output/figures/fig_korea_operator_costs.png")
+```
+
+# Part 5 -- Panel regression
+
+```{r panel-regression, cache=TRUE}
+source_script("scripts/03_panel_regression.R")
+```
+
+```{r table3a}
+show_table("output/tables/table3a_model_within_nepal.csv", "Model A: within Nepal")
+```
+
+```{r table3b}
+show_table("output/tables/table3b_model_cross_country.csv", "Model B: cross-country")
+```
+
+# Part 6 -- NRB time series
+
+```{r timeseries, cache=TRUE}
+source_script("scripts/04_timeseries_structural_break.R")
+```
+
+```{r table4}
+show_table("output/tables/table4_chow_test_summary.csv", "Chow test summary")
+```
+
+```{r fig3, fig.cap="STL decomposition"}
+show_fig("output/figures/fig3_stl_decomposition.png")
+```
+
+```{r fig4, fig.cap="Structural breaks"}
+show_fig("output/figures/fig4_structural_breaks.png")
+```
+
+# Part 7 -- Monte Carlo
+
+```{r monte-carlo, cache=TRUE}
+source_script("scripts/05_monte_carlo_retention.R")
+```
+
+```{r table5}
+show_table("output/tables/table5_monte_carlo_summary.csv", "Monte Carlo summary", max_rows = 20)
+```
+
+All figures in USD million/year. Scenario 1 = FX flows recaptured into formal channels if informal share falls from ~55% to ~20%. Scenario 2 = household savings if Saudi bank-channel users switch to MTOs.
+
+```{r fig5, fig.cap="Monte Carlo distributions"}
+show_fig("output/figures/fig5_monte_carlo_distributions.png")
+```
+
+# Part 8 -- EPS MOU analysis
+
+```{r eps-mou, cache=TRUE}
+source_script("scripts/06_eps_mou_analysis.R")
+```
+
+```{r table6a}
+show_table("output/tables/table6a_eps_mou_clause_mapping.csv", "EPS MOU clauses")
+```
+
+```{r table6b}
+show_table("output/tables/table6b_instrument_comparison.csv", "Comparator instruments")
+```
+
+```{r fig6, fig.cap="EPS gap matrix"}
+show_fig("output/figures/fig6_eps_gap_matrix.png")
+```
+
+
+# Appendix -- Proposed EPS clause
+
+```{r eps-clause, results='asis'}
+p <- "output/tables/table6c_proposed_eps_clause.txt"
+if (file.exists(p)) cat(readLines(p), sep = "\n")
+```
+
+# Appendix -- Output inventory
+
+```{r output-inventory}
+inv <- function(d) {
+  if (!dir.exists(d)) return(NULL)
+  f <- list.files(d)
+  data.frame(file = f, kb = round(file.info(file.path(d, f))$size / 1024, 1))
+}
+kable_pdf(inv("output/figures"), caption = "Figures produced")
+kable_pdf(inv("output/tables"), caption = "Tables produced")
+```

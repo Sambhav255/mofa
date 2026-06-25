@@ -1,0 +1,4 @@
+"scenario","metric","p10","median","p90","unit"
+"S1: Korea formalization","flows_recaptured_usd_mn",99.3,168.3,240.7,"USD million/year"
+"S1: Korea formalization","net_household_cost_usd_mn",-0.9,0.2,1.4,"USD million/year"
+"S2: Saudi bank→MTO switch","household_savings_usd_mn",5.8,12.2,18.9,"USD million/year"

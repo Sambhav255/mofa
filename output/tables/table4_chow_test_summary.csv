@@ -1,0 +1,4 @@
+"event","date","chow_F","chow_p","note"
+"covid","2020-03-01",NA,NA,"chow test failed"
+"fatf","2025-02-01",0.248,0.7819,""
+"upi_npi","2026-06-01",NA,NA,"skipped - only 0 post-event month(s) of data"

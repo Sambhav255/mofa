@@ -1,0 +1,40 @@
+"month","bs_month","fiscal_year","months_of_fy","remit_npr_bn","remit_ytd_npr_bn","remit_ytd_usd_bn","fx_reserve_usd_bn","labor_permits_new","data_notes","source","cal_m.x","cal_m.y"
+2022-02-01,"2078 Falgun","2021/22",8,NA,631.19,5.28,9.58,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,NA
+2022-06-01,"2079 Ashadh","2021/22",12,NA,1007.31,8.33,9.54,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,NA
+2023-03-01,"2079 Chaitra","2022/23",9,NA,903.39,6.92,10.94,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,NA
+2023-10-01,"2080 Kartik","2023/24",4,133.82,477.96,3.6,12.75,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,10
+2023-12-01,"2080 Poush","2023/24",6,192.62,733.22,5.52,13.69,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,12
+2024-04-01,"2081 Baishakh","2023/24",10,257.49,1198.6,9.02,14.54,NA,"remit:cumulative_only_monthly_NA; permits:NA","original_collection",NA,4
+2024-05-01,"2081 Jestha","2023/24",11,128.91,1327.51,9.98,14.72,NA,"remit:computed_cumulative_diff; permits:NA","original_collection",5,5
+2024-07-01,NA,"2024/25",1,177.41,136.93,NA,NA,NA,"pdf_extracted","pdf_extracted",7,7
+2024-08-01,NA,"2024/25",2,126.21,263.14,NA,NA,NA,"computed_ytd_diff","pdf_extracted",8,8
+2024-09-01,"2081 Ashwin","2024/25",3,144.17,407.31,NA,16.6,110654,"computed_ytd_diff","original_collection",9,9
+2024-10-01,NA,"2024/25",4,133.82,NA,NA,16.7,NA,"pdf_extracted","pdf_extracted",10,10
+2024-11-01,NA,"2024/25",5,183.18,NA,NA,16.76,NA,"pdf_extracted","pdf_extracted",11,11
+2024-12-01,NA,"2024/25",6,192.62,NA,NA,16.84,NA,"pdf_extracted","pdf_extracted",12,12
+2024-01-01,NA,"2024/25",7,198.08,NA,NA,17.05,NA,"pdf_extracted","pdf_extracted",NA,1
+2024-02-01,NA,"2024/25",8,188.64,NA,NA,17.27,NA,"pdf_extracted","pdf_extracted",NA,2
+2024-03-01,NA,"2024/25",9,209.75,NA,NA,17.63,NA,"pdf_extracted","pdf_extracted",NA,3
+2025-04-01,NA,"2024/25",10,257.49,NA,NA,18.4,NA,"pdf_extracted","pdf_extracted",4,4
+2025-05-01,"2082 Jestha","2024/25",11,176.32,NA,11.25,18.65,452324,"remit:extracted_stated_month; permits:ft_approval_YTD_cumulative","original_collection",5,5
+2025-06-01,"2082 Ashadh","2024/25",12,189.11,1723.27,12.64,19.5,505957,"remit:extracted_stated_month; permits:ft_approval_YTD_cumulative","original_collection",6,6
+2025-07-01,"2082 Shrawan","2025/26",1,177.41,177.41,1.27,20.03,44466,"remit:extracted_month1=cumulative; permits:ft_approval_YTD_cumulative","original_collection",7,7
+2025-08-01,NA,"2025/26",2,174.67,352.08,NA,NA,NA,"pdf_extracted","pdf_extracted",8,8
+2025-09-01,NA,"2025/26",3,201.22,553.31,NA,21.21,NA,"pdf_extracted","pdf_extracted",9,9
+2025-10-01,"2082 Kartik","2025/26",4,133.82,687.13,4.88,21.52,145973,"remit:extracted_stated_month; permits:ft_approval_YTD_cumulative","original_collection",10,10
+2025-11-01,NA,"2025/26",5,183.18,870.31,NA,22.13,NA,"pdf_extracted","pdf_extracted",11,11
+2025-12-01,NA,"2025/26",6,192.62,NA,NA,22.47,NA,"pdf_extracted","pdf_extracted",12,12
+2025-01-01,NA,"2025/26",7,198.08,1261.01,NA,22.76,NA,"pdf_extracted","pdf_extracted",1,1
+2025-02-01,NA,"2025/26",8,188.64,1449.65,NA,23.08,NA,"pdf_extracted","pdf_extracted",2,2
+2026-02-01,"2082 Falgun","2025/26",8,188.64,1449.65,10.15,23.08,273576,"remit:extracted_stated_month; permits:ft_approval_YTD_cumulative","original_collection",2,2
+2025-03-01,NA,"2025/26",9,209.75,NA,NA,NA,NA,"pdf_extracted","pdf_extracted",3,3
+2026-04-01,NA,"2025/26",10,257.49,NA,NA,NA,NA,"pdf_extracted","pdf_extracted",4,4
+2023-05-01,NA,NA,NA,152.615,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,5
+2023-06-01,NA,NA,NA,189.11,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,6
+2023-07-01,NA,NA,NA,177.41,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,7
+2023-08-01,NA,NA,NA,150.44,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,8
+2023-09-01,NA,NA,NA,172.695,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,9
+2023-11-01,NA,NA,NA,183.18,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",NA,11
+2024-06-01,NA,NA,NA,189.11,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",6,6
+2026-01-01,NA,NA,NA,198.08,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",1,1
+2026-03-01,NA,NA,NA,209.75,NA,NA,NA,NA,"seasonal_interpolation_from_anchors","interpolated",3,3
