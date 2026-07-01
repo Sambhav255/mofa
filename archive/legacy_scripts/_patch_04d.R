@@ -1,0 +1,5 @@
+f <- readLines("scripts/04_timeseries_structural_break.R")
+f <- gsub("select_consecutive_block(nrb_ts_all, 24L)", "select_consecutive_block(nrb_ts_all, 36L)", f)
+f <- gsub("if (length(ts_remit) >= 24)", "if (length(ts_remit) >= 36)", f)
+writeLines(f, "scripts/04_timeseries_structural_break.R")
+cat("Fixed 24L -> 36L in 04\n")

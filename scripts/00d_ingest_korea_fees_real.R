@@ -6,7 +6,7 @@
 
 suppressMessages(library(dplyr))
 
-SRC <- "korea_nepal_operator_fees.csv"
+SRC <- "data/raw/collected/korea_nepal_operator_fees.csv"
 OUT <- "data/raw/korea_mto_fees_real.csv"
 
 dir.create("data/raw", showWarnings = FALSE, recursive = TRUE)

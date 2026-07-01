@@ -13,7 +13,7 @@ suppressMessages({
 })
 
 RAW_XLSX <- "data/raw/rpw_dataset_2011_2025_q3.xlsx"
-SRC_XLSX <- "rpw_dataset_2011_2025_q3.xlsx"
+SRC_XLSX <- "data/raw/rpw_dataset_2011_2025_q3.xlsx"
 OUT_CSV  <- "data/raw/rpw_real.csv"
 
 dir.create("data/raw", showWarnings = FALSE, recursive = TRUE)

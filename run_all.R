@@ -25,7 +25,8 @@ analysis_scripts <- c(
   "scripts/03_panel_regression.R",
   "scripts/04_timeseries_structural_break.R",
   "scripts/05_monte_carlo_retention.R",
-  "scripts/06_eps_mou_analysis.R"
+  "scripts/06_eps_mou_analysis.R",
+  "scripts/07_bla_comparative_analysis.R"
 )
 
 scripts <- c(prep_scripts, analysis_scripts)

@@ -9,9 +9,9 @@ suppressMessages({
   library(dplyr)
 })
 
-SRC_CSV      <- "nrb_remit_monthly_real.csv"
+SRC_CSV      <- "data/raw/collected/nrb_remit_monthly_real.csv"
 OUT_CSV      <- "data/raw/nrb_remit_monthly_real.csv"
-INVENTORY    <- "nrb_report_inventory.csv"
+INVENTORY    <- "data/raw/collected/nrb_report_inventory.csv"
 MAX_NEW   <- 80L
 PDF_CACHE    <- "data/raw/nrb_pdfs"
 MIN_MONTHS_FOR_TS <- 36L

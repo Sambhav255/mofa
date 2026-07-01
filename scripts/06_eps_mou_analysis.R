@@ -82,18 +82,44 @@ cat("Which comparable frameworks have addressed payments?\n")
 cat("=================================================================\n\n")
 
 comparators <- tribble(
-  ~instrument,               ~country_pair,          ~year, ~has_fee_cap, ~has_fx_disclosure, ~has_mto_access_clause, ~has_predeparture_finlit, ~has_wage_payment_method, ~binding_or_soft,
-  "Nepal-Korea EPS MOU",     "Nepal/Korea",          2007,  FALSE, FALSE, FALSE, FALSE, FALSE, "N/A — silent",
-  "Nepal-UAE MOU",           "Nepal/UAE",            2007,  FALSE, FALSE, FALSE, FALSE, FALSE, "N/A — silent",
-  "Nepal-Malaysia MOU",      "Nepal/Malaysia",       2018,  FALSE, FALSE, FALSE, FALSE, FALSE, "N/A — silent",
-  "Philippines-KSA POEA/BSP","Philippines/Saudi",   2007,  FALSE, TRUE,  TRUE,  TRUE,  FALSE, "Soft/regulatory",
-  "BSP MORB §298 (domestic)","Philippines domestic", 2023,  FALSE, TRUE,  TRUE,  TRUE,  FALSE, "Binding (domestic)",
-  "BSP Circular 1238",       "Philippines domestic", 2026,  TRUE,  TRUE,  TRUE,  FALSE, FALSE, "Binding (domestic)",
-  "NZ RSE admin arrangement","NZ/Pacific",           2020,  FALSE, FALSE, TRUE,  FALSE, FALSE, "Administrative",
-  "Korea HRD EPS worker guide","Korea domestic",     2023,  FALSE, FALSE, FALSE, TRUE,  TRUE,  "Administrative",
-  "UPI-NPI MOU (India-Nepal)","India/Nepal",         2024,  FALSE, FALSE, TRUE,  FALSE, FALSE, "Bilateral binding"
-)
+  ~instrument,                       ~country_pair,          ~year,
+  ~has_fee_cap, ~has_fx_disclosure, ~has_mto_access_clause, ~has_predeparture_finlit, ~has_wage_payment_method,
+  ~binding_or_soft,
 
+  "UPI-NPI MOU (India-Nepal)",       "India/Nepal",          2024,
+  FALSE, FALSE, FALSE, FALSE, FALSE, "Bilateral binding",
+
+  "NZ RSE admin arrangement",        "NZ/Pacific",           2020,
+  FALSE, FALSE, FALSE, FALSE, TRUE,  "Administrative",
+
+  "Nepal-UAE labour pact",           "Nepal/UAE",            2019,
+  FALSE, FALSE, FALSE, FALSE, TRUE,  "Bilateral binding",
+
+  "Nepal-Malaysia MOU",              "Nepal/Malaysia",       2018,
+  FALSE, FALSE, FALSE, FALSE, TRUE,  "Bilateral binding",
+
+  "Nepal-Korea EPS MOU",             "Nepal/Korea",          2007,
+  FALSE, FALSE, FALSE, FALSE, FALSE, "N/A — silent",
+
+  "Korea HRD EPS worker guide",      "Korea domestic",       2023,
+  FALSE, FALSE, FALSE, TRUE,  TRUE,  "Administrative",
+
+  "BSP MORB §298 (domestic)",        "Philippines domestic", 2023,
+  FALSE, TRUE,  FALSE, FALSE, FALSE, "Binding (domestic)",
+
+  "BSP Circular 1238",               "Philippines domestic", 2026,
+  TRUE,  FALSE, FALSE, FALSE, FALSE, "Binding (domestic)"
+)
+comparators_notes <- tribble(
+  ~instrument,                  ~column_name,               ~value, ~coding_basis,                ~source_type,           ~source_citation, ~notes,
+  "Nepal-UAE labour pact",      "has_wage_payment_method",  TRUE,   "MoU text",                   "bilateral MoU",        "ceslam.org/updates/nepal-signs-labor-pact-with-uae/", "Employer-pays, timely wage settlement, wages through formal channels; silent on remittance fees, FX, and payment channels.",
+  "Nepal-Malaysia MOU",         "has_wage_payment_method",  TRUE,   "MoU text",                   "bilateral MoU",        "nepalitimes.com/nepal-and-malaysia-rewrite-rules-for-migrant-labour", "Bank payment by 7th of month; employer bears recruitment costs; silent on remittance provisions.",
+  "NZ RSE admin arrangement",   "has_wage_payment_method",  TRUE,   "administrative rules",       "administrative guide", "immigration.govt.nz RSE Get Ready Pack (June 2025)", "Employment agreements mandate minimum wages and entitlements; no remittance or FX clauses.",
+  "Korea HRD EPS worker guide", "has_predeparture_finlit",  TRUE,   "practice-based guide",       "administrative guide", "epsnepal.org/cc/23; m.easylaw.go.kr MOM foreign-worker guide", "Orientation covers worker rights and basic finances; not a formal MoU financial-literacy clause.",
+  "Korea HRD EPS worker guide", "has_wage_payment_method",  TRUE,   "practice-based guide",       "administrative guide", "m.easylaw.go.kr MOM foreign-worker guide", "Korean labour law requires bank-account wage deposit; guide explains account opening.",
+  "BSP MORB §298 (domestic)",   "has_fx_disclosure",        TRUE,   "domestic banking regulation","banking regulation",  "morb.bsp.gov.ph/298-disclosure-of-remittance-charges/", "Requires disclosure of remittance fees, FX rate, spread, charges, payout amount, and delivery time.",
+  "BSP Circular 1238",          "has_fee_cap",              TRUE,   "domestic banking regulation","banking regulation",  "BSP Circular 1238 (2026)", "Off-us P2P fees must not materially differ from on-us; zero fees for micro-merchant EFTs."
+)
 cat("Cross-instrument payment provision scorecard:\n\n")
 print(comparators %>% select(-binding_or_soft), row.names = FALSE)
 cat("\n")
@@ -107,8 +133,9 @@ cat("  NOT a binding fee-cap in the EPS MOU (no precedent; unlikely)\n")
 cat("  BUT cooperative language + an annual-review agenda item + NRB\n")
 cat("  domestic regulation, using the EPS MOU Amendment (Para 20) as\n")
 cat("  the vehicle to add a non-binding cooperation clause.\n\n")
-
 write.csv(comparators, "output/tables/table6b_instrument_comparison.csv", row.names = FALSE)
+write.csv(comparators_notes, "output/tables/table6b_notes.csv", row.names = FALSE)
+cat("Saved output/tables/table6b_notes.csv\n")
 
 # ---------------------------------------------------------------------------
 # 3. Proposed EPS MOU model clause language
@@ -158,30 +185,50 @@ cat("Saved output/tables/table6c_proposed_eps_clause.txt\n\n")
 # ---------------------------------------------------------------------------
 # 4. Gap matrix visualisation
 # ---------------------------------------------------------------------------
-provision_types <- c("Fee cap", "FX disclosure", "MTO access clause",
-                     "Pre-departure fin. lit.", "Wage payment method")
+# Comparator coding for Figure 6 is documented in output/tables/table6b_notes.csv.
+provision_cols <- c(
+  "has_fee_cap",
+  "has_fx_disclosure",
+  "has_mto_access_clause",
+  "has_predeparture_finlit",
+  "has_wage_payment_method"
+)
+
+provision_labels <- c(
+  has_fee_cap = "Fee cap",
+  has_fx_disclosure = "FX disclosure",
+  has_mto_access_clause = "Remittance / channel clause",
+  has_predeparture_finlit = "Pre-departure training",
+  has_wage_payment_method = "Wage payment method"
+)
 
 gap_long <- comparators %>%
-  mutate(across(starts_with("has_"), as.integer)) %>%
-  pivot_longer(starts_with("has_"), names_to = "provision", values_to = "present") %>%
-  mutate(provision = recode(provision,
-    has_fee_cap = "Fee cap",
-    has_fx_disclosure = "FX disclosure",
-    has_mto_access_clause = "MTO access clause",
-    has_predeparture_finlit = "Pre-departure fin. lit.",
-    has_wage_payment_method = "Wage payment method"
-  ))
+  select(instrument, all_of(provision_cols)) %>%
+  pivot_longer(
+    cols = all_of(provision_cols),
+    names_to = "provision",
+    values_to = "present"
+  ) %>%
+  mutate(
+    provision = recode(provision, !!!provision_labels),
+    present = as.integer(present)
+  )
 
 p_gap <- ggplot(gap_long, aes(x = provision, y = instrument, fill = factor(present))) +
   geom_tile(color = "white", linewidth = 0.8) +
   scale_fill_manual(values = c("0" = "#f0f0f0", "1" = "#13315c"),
                     labels = c("Absent", "Present")) +
-  labs(title = "Payment provision gap matrix",
-       subtitle = "Nepal's EPS MOU vs comparable instruments",
-       x = NULL, y = NULL, fill = NULL) +
+  labs(
+    title = "Payment provision gap matrix",
+    subtitle = "Nepal's EPS MoU vs bilateral labour agreements and domestic/payment instruments on payment-related provisions.",
+    caption = "Cells marked 'present' reflect clauses or rules identified in primary texts. UPI-NPI is shown as a payment-rail MoU (no explicit migrant remittance or wage provisions). Comparator coding and sources are documented in table6b_notes.csv.",
+    x = NULL, y = NULL, fill = NULL
+  ) +
   theme_minimal(base_size = 10) +
-  theme(axis.text.x = element_text(angle = 35, hjust = 1),
-        legend.position = "bottom")
+  theme(
+    axis.text.x = element_text(angle = 35, hjust = 1),
+    legend.position = "bottom"
+  )
 
 ggsave("output/figures/fig6_eps_gap_matrix.png", p_gap, width = 8.5, height = 5, dpi = 200)
 cat("Saved output/figures/fig6_eps_gap_matrix.png\n\n")

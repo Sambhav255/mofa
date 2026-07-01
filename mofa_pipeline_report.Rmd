@@ -1,6 +1,6 @@
 ---
 title: "MoFA Nepal Remittance Corridor Pipeline"
-subtitle: "Measuring the Invisible -- Korea Corridor, Gulf Comparators, and EPS MOU Analysis"
+subtitle: "Measuring the Invisible -- Korea EPS Case Study and BLA Remittance Provisions"
 author: "Sambhav Lamichhane"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
@@ -255,6 +255,33 @@ show_table("output/tables/table6b_instrument_comparison.csv", "Comparator instru
 show_fig("output/figures/fig6_eps_gap_matrix.png")
 ```
 
+# Part 9 -- Bilateral Labour Agreement Comparison
+
+**Research question (locked, 25 June 2026):** What payment-related provisions should Nepal embed in its bilateral labour agreements to reduce remittance costs and establish formal cost monitoring, and what does the Korea EPS corridor reveal about the diplomatic case for doing so?
+
+Korea is the **case study**, not one corridor among equals. The EPS MOU analysis above documents a confirmed gap: 21 paragraphs, zero remittance provisions, and no Korea→Nepal RPW coverage despite an estimated USD 484M/year corridor volume. That gap motivates recommendations that generalise to all of Nepal's BLA partners — Gulf, Malaysia, and Japan — not Korea alone.
+
+Gulf, Malaysia, and Japan columns in the BLA gap matrix below are **pending desk research** (MOU text scan). Only the Korea EPS row is fully coded from published MOU text.
+
+```{r bla-comparison, cache=TRUE}
+source_script("scripts/07_bla_comparative_analysis.R")
+```
+
+```{r table7}
+show_table("output/tables/table7_bla_comparison.csv", "Nepal BLA comparison")
+```
+
+```{r fig8, fig.cap="BLA payment-provision gap matrix"}
+show_fig("output/figures/fig8_bla_gap_matrix.png")
+```
+
+## Recommendations
+
+1. **RPW inclusion:** Formally request World Bank RPW inclusion of the Korea→Nepal corridor so cost monitoring matches Gulf corridors already in the database.
+
+2. **EPS MOU amendment:** Negotiate a non-binding remittance disclosure and financial literacy clause into the EPS MOU via the Paragraph 20 amendment mechanism at the next Nepal–Korea EPS Joint Committee meeting.
+
+3. **Replicable template:** Adopt the model clause in `table6c_proposed_eps_clause.txt` as a template for Nepal's Gulf, Malaysia, and Japan BLA renewals — cooperative disclosure and monitoring language rather than binding fee caps.
 
 # Appendix -- Proposed EPS clause
 

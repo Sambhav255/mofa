@@ -1,0 +1,14 @@
+month,bs_month,fiscal_year,months_of_fy,remit_npr_bn,remit_ytd_npr_bn,remit_ytd_usd_bn,fx_reserve_usd_bn,labor_permits_new,data_notes
+2022-02-01,2078 Falgun,2021/22,8,,631.19,5.28,9.58,,remit:cumulative_only_monthly_NA; permits:NA
+2022-06-01,2079 Ashadh,2021/22,12,,1007.31,8.33,9.54,,remit:cumulative_only_monthly_NA; permits:NA
+2023-03-01,2079 Chaitra,2022/23,9,,903.39,6.92,10.94,,remit:cumulative_only_monthly_NA; permits:NA
+2023-10-01,2080 Kartik,2023/24,4,,477.96,3.6,12.75,,remit:cumulative_only_monthly_NA; permits:NA
+2023-12-01,2080 Poush,2023/24,6,,733.22,5.52,13.69,,remit:cumulative_only_monthly_NA; permits:NA
+2024-04-01,2081 Baishakh,2023/24,10,,1198.6,9.02,14.54,,remit:cumulative_only_monthly_NA; permits:NA
+2024-05-01,2081 Jestha,2023/24,11,128.91,1327.51,9.98,14.72,,remit:computed_cumulative_diff; permits:NA
+2024-09-01,2081 Ashwin,2024/25,3,,407.31,,16.6,110654,remit:cumulative_only_monthly_NA; permits:ft_approval_YTD_cumulative
+2025-05-01,2082 Jestha,2024/25,11,176.32,,11.25,18.65,452324,remit:extracted_stated_month; permits:ft_approval_YTD_cumulative
+2025-06-01,2082 Ashadh,2024/25,12,189.11,1723.27,12.64,19.5,505957,remit:extracted_stated_month; permits:ft_approval_YTD_cumulative
+2025-07-01,2082 Shrawan,2025/26,1,177.41,177.41,1.27,20.03,44466,remit:extracted_month1=cumulative; permits:ft_approval_YTD_cumulative
+2025-10-01,2082 Kartik,2025/26,4,133.82,687.13,4.88,21.52,145973,remit:extracted_stated_month; permits:ft_approval_YTD_cumulative
+2026-02-01,2082 Falgun,2025/26,8,188.64,1449.65,10.15,23.08,273576,remit:extracted_stated_month; permits:ft_approval_YTD_cumulative
