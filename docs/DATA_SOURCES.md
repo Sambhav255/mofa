@@ -93,13 +93,28 @@ before the paper is submitted — several are currently incomplete, flagged expl
   Permit System*. Archived at Centre for the Study of Labour and Mobility,
   https://archive.ceslam.org
 
-### A5. Nepal BLA comparator instruments (Gulf, Malaysia, Japan)
+### A5. Nepal BLA comparator instruments (Qatar, UAE, Saudi Arabia, Malaysia, Japan, Bahrain, Jordan)
 
-- **Status: scaffolded, not yet populated.** `scripts/07_bla_comparative_analysis.R`
-  extends A4's clause coding into a comparison table, but the Gulf (2007), Malaysia
-  (2003/2018), and Japan MOU text has not yet been reviewed — see data gap #5 in the
-  tracker. `table7_bla_comparison.csv` / `fig8_bla_gap_matrix.png` currently only have a
-  confirmed Korea column.
+- **Status: provisionally populated (2026-07-01), primary-text verification pending.**
+  `scripts/07_bla_comparative_analysis.R` extends A4's clause coding to 7 more Nepal BLA
+  partners from a desk-research pass. **Do not cite these 7 rows with the same confidence
+  as the Korea row** — the primary MOU text has not yet been independently checked against
+  the sources below. See data gap #5 in the tracker.
+- **Sources to verify against:** archive.ceslam.org/governance/bilateral-arrangements
+  (Nepal BLA archive); ilo.org/media/439831/download (ILO bilateral labour-migration
+  agreements study)
+- **What was found (all provisional):** Qatar — Agreement on Nepali Manpower Employment,
+  21 Mar 2005; UAE — MOU, 2007; Saudi Arabia — Bilateral Labour Agreement, 26 Jan 2026;
+  Malaysia — MOU, 2003, updated 29 Oct 2018; Japan — Memorandum of Cooperation (Specified
+  Skilled Worker), 25 Mar 2019, updated 1 Jan 2024; Bahrain — MOU, 2008; Jordan — General
+  Agreement in the Field of Manpower, 18 Oct 2017.
+- **Key finding:** zero remittance provisions across all 8 instruments reviewed (Korea +
+  7). Saudi Arabia's BLA is the only one with any payment-channel clause at all — salary
+  must be paid into a bank account in the worker's own name.
+- **Local file:** `output/tables/table7_bla_comparison.csv`, `output/figures/fig8_bla_gap_matrix.png`
+- **Suggested citation (once verified):** cite each instrument individually by its full
+  name/date above, sourced to its primary MOU/agreement text or the CESLAM/ILO archive
+  entry — not to this repo's summary table.
 
 ---
 
@@ -117,9 +132,18 @@ placeholder label.
 | Korea corridor total remittance volume | USD 484M/year | `"NLSS IV 2022/23"` (`scripts/05_monte_carlo_retention.R:16`) | Full NLSS IV report citation (National Statistics Office, Government of Nepal) + table/page number for the corridor breakdown |
 | Saudi corridor total remittance volume | USD 1,020M/year | `"NLSS IV 2022/23"` | Same as above |
 | Korea informal-channel share (historical) | ~80% | `"IOM Seoul / Kathmandu Post ~2017"` | Exact IOM Seoul report title/author, or the specific Kathmandu Post article date/byline |
-| Korea informal-channel share (current estimate) | ~55% | `"Literature triangulation"` | Not a single citable source — document the triangulation method if used in the paper |
-| Nepal FATF grey-listing | February 2025 | (README only, no script constant) | FATF plenary outcome statement — exact date and URL from fatf-gafi.org |
+| Korea informal-channel share (current estimate) | ~45–65% (script uses ~55%) | `"Literature triangulation"` | Not a single citable source — document the triangulation method if used in the paper |
+| Nepal FATF grey-listing | February 2025; still listed as of the 19 June 2026 FATF plenary | (README only, no script constant) | FATF plenary outcome statement — exact date and URL from fatf-gafi.org, for both the Feb 2025 listing and the June 2026 plenary confirmation |
+| APG review deadline | September 2026 (hawala/hundi control specifically cited) | not yet in repo | Exact Asia/Pacific Group on Money Laundering (APG) mutual evaluation follow-up document and URL |
 | KNOMAD bilateral remittance matrix | vintage ~2021 | referenced in `docs/cursor_consolidate_r_project_files.md` | https://data360.worldbank.org/en/indicator/WB_KNOMAD_BRE — modeled, not measured; cross-check against NRB BoP figures before citing as a standalone number |
+| Active EPS workers in Korea | ~60,000–61,000 | `"DoFE, August 2025"` | Exact DoFE Statistics Section report/bulletin title and URL. Note: distinct from data gap #2 (the year-by-year 2007–2025 series requested 1 Jul 2026) — this is a single topline figure only |
+| New labour permits (Korea) FY2024/25 | 14,224 | `"DoFE"` | Exact DoFE bulletin/report title and URL |
+| NZ Recognised Seasonal Employer (RSE) scheme | Comparator: employers legally required to give workers MTO information | `"MFAT"` (New Zealand Ministry of Foreign Affairs and Trade) | Specific MFAT/Immigration NZ policy document and URL — currently only cited generically |
+| BOK–NRB Korea Payment Project (KPP) | Bilateral technical cooperation channel, Feb 2025 report | `"NRB/BOK"` | Exact NRB or Bank of Korea report title and URL — grounds EPS clause sub-clause (d) in the model clause text |
+| UPI–NPI cross-border payment link launch | 6 June 2026 | `"NRB / RBI"` | Exact NRB or Reserve Bank of India press release/announcement URL |
+| SDG 10.c remittance-cost target | 3.0% by 2030 | — | Well-established, citable directly: UN General Assembly, *Transforming Our World: The 2030 Agenda for Sustainable Development*, Target 10.c |
+| G20 "5x5" remittance-cost objective | 5.0% | — | Well-established, citable directly: G20, *Los Cabos Leaders' Declaration* (June 2012) / G20 Global Partnership for Financial Inclusion National Remittance Plans |
+| BSP MORB Section 298 (Philippines) | Correct comparator for Recommendation 3 | see A1 above | **Not** "BSP Circular 1238" — that citation was a factual error, corrected 2026-07-01 in `scripts/06_eps_mou_analysis.R` (see `data_gaps_tracker.md` notes). If it appears in any slide deck outside this repo, replace it. |
 
 **Why this matters:** the NLSS IV and IOM figures are the only quantitative grounding for
 Korea's total corridor volume and the formalization-value Monte Carlo (table5) — if the

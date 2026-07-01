@@ -62,7 +62,7 @@ five-corridor comparison — see `docs/TOPIC_FINALIZATION_PROMPT.md` and
 | `04_timeseries_structural_break.R` | NRB ADF, STL decomposition, Chow structural-break tests | table4, fig3, fig4 |
 | `05_monte_carlo_retention.R` | Monte Carlo formalization-value scenarios | table5, fig5 |
 | `06_eps_mou_analysis.R` | EPS MOU clause gap matrix, comparator instruments, model clause draft | table6a/b/c, fig6 |
-| `07_bla_comparative_analysis.R` | Extends 06 into a full BLA gap matrix (Korea confirmed; Gulf/Malaysia/Japan scaffolded) | table7, fig8 |
+| `07_bla_comparative_analysis.R` | Extends 06 into a full BLA gap matrix across 8 Nepal BLAs (Korea confirmed from MOU text; other 7 provisional pending primary-text verification) | table7, fig8 |
 
 `mofa_pipeline_report.Rmd` doesn't duplicate this logic — it sources the same scripts via a
 `source_script()` wrapper and renders the resulting `output/tables/` and `output/figures/`
@@ -92,6 +92,24 @@ comparison → recommendations → appendices).
 - Added `07_bla_comparative_analysis.R`, `table7_bla_comparison.csv`, and
   `fig8_bla_gap_matrix.png` to extend the EPS-only gap matrix (06) into a full BLA comparison
   (07) — Gulf/Malaysia/Japan columns are scaffolded pending the desk-research gap below.
+- Added `docs/DATA_SOURCES.md`, the citation-ready reference list for paper writing.
+
+### 5. Follow-up work (this session, July 1 2026, from `NEXT_STEPS.md`)
+- **Fixed a citation error:** `scripts/06_eps_mou_analysis.R` incorrectly cited "BSP Circular
+  1238" as a Philippine remittance fee-cap instrument — that circular is actually about
+  domestic Philippine digital payment pricing (InstaPay/PESONet), unrelated to remittances.
+  Removed the row; the correct comparator (**BSP MORB Section 298**, FX/fee disclosure) was
+  already coded separately and is unaffected. `table6a/b`, `fig6` regenerated.
+- **Populated the BLA comparison scaffold:** `scripts/07_bla_comparative_analysis.R` now
+  codes all 8 Nepal BLAs (Korea, Qatar, UAE, Saudi Arabia, Malaysia, Japan, Bahrain, Jordan)
+  from a 1 July 2026 desk-research pass. Finding: zero remittance provisions in any of them;
+  Saudi Arabia's Jan 2026 BLA is the only one with a payment-channel clause (salary via bank
+  account). **This is provisional** — see `data_gaps_tracker.md` gap #5 — primary MOU text
+  still needs independent verification before citing with Korea-row confidence.
+  `table7_bla_comparison.csv`, `fig8_bla_gap_matrix.png` regenerated (also fixed a legend
+  mislabeling bug this surfaced in the gap-matrix plot).
+- See `NEXT_STEPS.md` for the fuller task list (brief structure, drafting numbers, remaining
+  gaps) this work was drawn from.
 
 ---
 
@@ -180,6 +198,7 @@ install.packages(c("dplyr","tidyr","ggplot2","readxl","stringr","plm",
 | `docs/` | Background/process notes; **`docs/DATA_SOURCES.md`** is the citation-ready reference list for paper writing — not needed to run the pipeline |
 | `archive/legacy_scripts/` | Superseded code, not sourced by anything; see its README before touching |
 | `data_gaps_tracker.md` | Live tracker of open data gaps — check before assuming a figure is final |
+| `NEXT_STEPS.md` | Authoritative task list for the brief (must-fix errors, gap-by-gap action items, drafting numbers, week-by-week plan) — read before starting new work |
 | `tex/` | Vendored LaTeX packages the Rmd's YAML header points at, for PDF rendering |
 | `CLAUDE.md` | Technical map for AI coding assistants working in this repo |
 

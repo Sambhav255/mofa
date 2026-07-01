@@ -105,10 +105,7 @@ comparators <- tribble(
   FALSE, FALSE, FALSE, TRUE,  TRUE,  "Administrative",
 
   "BSP MORB §298 (domestic)",        "Philippines domestic", 2023,
-  FALSE, TRUE,  FALSE, FALSE, FALSE, "Binding (domestic)",
-
-  "BSP Circular 1238",               "Philippines domestic", 2026,
-  TRUE,  FALSE, FALSE, FALSE, FALSE, "Binding (domestic)"
+  FALSE, TRUE,  FALSE, FALSE, FALSE, "Binding (domestic)"
 )
 comparators_notes <- tribble(
   ~instrument,                  ~column_name,               ~value, ~coding_basis,                ~source_type,           ~source_citation, ~notes,
@@ -117,8 +114,7 @@ comparators_notes <- tribble(
   "NZ RSE admin arrangement",   "has_wage_payment_method",  TRUE,   "administrative rules",       "administrative guide", "immigration.govt.nz RSE Get Ready Pack (June 2025)", "Employment agreements mandate minimum wages and entitlements; no remittance or FX clauses.",
   "Korea HRD EPS worker guide", "has_predeparture_finlit",  TRUE,   "practice-based guide",       "administrative guide", "epsnepal.org/cc/23; m.easylaw.go.kr MOM foreign-worker guide", "Orientation covers worker rights and basic finances; not a formal MoU financial-literacy clause.",
   "Korea HRD EPS worker guide", "has_wage_payment_method",  TRUE,   "practice-based guide",       "administrative guide", "m.easylaw.go.kr MOM foreign-worker guide", "Korean labour law requires bank-account wage deposit; guide explains account opening.",
-  "BSP MORB §298 (domestic)",   "has_fx_disclosure",        TRUE,   "domestic banking regulation","banking regulation",  "morb.bsp.gov.ph/298-disclosure-of-remittance-charges/", "Requires disclosure of remittance fees, FX rate, spread, charges, payout amount, and delivery time.",
-  "BSP Circular 1238",          "has_fee_cap",              TRUE,   "domestic banking regulation","banking regulation",  "BSP Circular 1238 (2026)", "Off-us P2P fees must not materially differ from on-us; zero fees for micro-merchant EFTs."
+  "BSP MORB §298 (domestic)",   "has_fx_disclosure",        TRUE,   "domestic banking regulation","banking regulation",  "morb.bsp.gov.ph/298-disclosure-of-remittance-charges-and-other-relevant-information/", "Mandates disclosure of remittance charges including FX margin differentials for international transfers."
 )
 cat("Cross-instrument payment provision scorecard:\n\n")
 print(comparators %>% select(-binding_or_soft), row.names = FALSE)

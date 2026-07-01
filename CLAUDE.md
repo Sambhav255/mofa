@@ -80,6 +80,7 @@ changes — confirm with the project owner first.
 | `docs/` | Background/process notes; `docs/DATA_SOURCES.md` is the citation-ready source list (publisher, URL, access date) for paper writing — cross-reference it when a task touches sourcing/citations. Not needed to run the pipeline |
 | `archive/legacy_scripts/` | Superseded code, not sourced by anything; see its README before touching |
 | `data_gaps_tracker.md` | Live tracker of open data gaps — check before assuming a figure is final |
+| `NEXT_STEPS.md` | Authoritative task list for the brief — read before touching any file; supersedes older task framing in README where they conflict on status (it's dated later) |
 | `tex/` | Vendored LaTeX packages the Rmd's YAML header points at (`tex/preamble.tex`, `tex/latex`) for PDF rendering — intentional, not build cruft |
 
 ## Conventions

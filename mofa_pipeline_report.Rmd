@@ -261,7 +261,7 @@ show_fig("output/figures/fig6_eps_gap_matrix.png")
 
 Korea is the **case study**, not one corridor among equals. The EPS MOU analysis above documents a confirmed gap: 21 paragraphs, zero remittance provisions, and no Korea→Nepal RPW coverage despite an estimated USD 484M/year corridor volume. That gap motivates recommendations that generalise to all of Nepal's BLA partners — Gulf, Malaysia, and Japan — not Korea alone.
 
-Gulf, Malaysia, and Japan columns in the BLA gap matrix below are **pending desk research** (MOU text scan). Only the Korea EPS row is fully coded from published MOU text.
+The Korea EPS row is fully coded from published MOU text. The remaining seven partners (Qatar, UAE, Saudi Arabia, Malaysia, Japan, Bahrain, Jordan) were populated from a 1 July 2026 desk-research pass and are **provisional** pending independent verification against primary MOU text — see `data_gaps_tracker.md` gap #5. All eight instruments show zero remittance provisions; Saudi Arabia's January 2026 BLA is the only one with any payment-channel clause (salary paid via bank account in the worker's own name).
 
 ```{r bla-comparison, cache=TRUE}
 source_script("scripts/07_bla_comparative_analysis.R")
